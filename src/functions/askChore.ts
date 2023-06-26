@@ -116,18 +116,16 @@ const check = async () => {
     previousMessages[user] = message.message_id;
 
     log(`Chores sent to user ${user}.`);
-
-    log("Updating nextTime...");
-
-    // update nextTime to be tomorrow at random time between 9 and 17
-    nextTime.setDate(nextTime.getDate() + 1);
-    nextTime.setHours(9 + Math.floor(Math.random() * 8));
-    nextTime.setMinutes(Math.floor(Math.random() * 60));
-
-    log("Next check time:", nextTime);
-
-    log("Chore check completed.");
   });
+
+  log("Chore check completed.");
+  log("Updating nextTime...");
+
+  log("Next check time:", nextTime);
+  // update nextTime to be tomorrow at random time between 9 and 17
+  nextTime.setDate(nextTime.getDate() + 1);
+  nextTime.setHours(9 + Math.floor(Math.random() * 8));
+  nextTime.setMinutes(Math.floor(Math.random() * 60));
 };
 
 // listen for callback queries
