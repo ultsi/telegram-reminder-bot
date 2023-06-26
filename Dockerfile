@@ -1,5 +1,5 @@
 # build environment
-FROM node:14.18.0 as builder
+FROM node:18.16.1 as builder
 ENV PATH /app/node_modules/.bin:$PATH
 ENV ADBLOCK 1
 ENV OPEN_SOURCE_CONTRIBUTOR true
@@ -17,7 +17,7 @@ COPY . /app
 RUN npm run build
 
 # production environment
-FROM node:14.18.0
+FROM node:18.16.1
 WORKDIR /app/
 COPY --from=builder /app/   /app/
 ENV TZ=Europe/Helsinki
