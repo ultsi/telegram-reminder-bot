@@ -24,6 +24,11 @@ bot.command("info", (ctx) => {
   );
 });
 
+bot.on("sticker", (ctx) => {
+  log("sticker", ctx.message.sticker.file_id);
+  ctx.reply("👍");
+});
+
 export const launchBot = () => {
   // Start bot polling in order to not terminate Node.js application.
   bot.launch();
