@@ -10,6 +10,8 @@ const nextTime = new Date();
 nextTime.setHours(9 + Math.floor(Math.random() * 8));
 nextTime.setMinutes(Math.floor(Math.random() * 60));
 
+log("Next check time:", nextTime);
+
 const choreDoneMessages = [
   "Hienoa! Teit askareen %s!",
   "Hyvä! Askare %s on nyt tehty!",
