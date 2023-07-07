@@ -88,40 +88,28 @@ const choreDoneStickers = [
 ];
 
 const sortChoresByUrgency = (chores: DoneChore[]) => {
+  const urgencyMap: Record<string, number> = chores.reduce(
+    (urgencyPerChore, chore) => {
+      // urgency = daysSinceLastDone - intervalDays
+      if (!chore.intervalDays) {
+        return {
+          ...urgencyPerChore,
+          [chore.name]: -3,
+        };
+      }
+      const daysSinceLastDone = Math.floor(
+        (new Date().getTime() - new Date(chore.doneLast).getTime()) /
+          (1000 * 60 * 60 * 24)
+      );
+      return {
+        ...urgencyPerChore,
+        [chore.name]: daysSinceLastDone - chore.intervalDays,
+      };
+    },
+    {}
+  );
   return chores.sort((a, b) => {
-    const aNextTime = new Date(a.doneLast);
-    const bNextTime = new Date(b.doneLast);
-
-    if (a.intervalDays && b.intervalDays) {
-      // Both chores have intervalDays defined
-      const aIntervalTime = new Date(a.doneLast);
-      aIntervalTime.setDate(aIntervalTime.getDate() + a.intervalDays);
-      const bIntervalTime = new Date(b.doneLast);
-      bIntervalTime.setDate(bIntervalTime.getDate() + b.intervalDays);
-
-      if (aIntervalTime < aNextTime) {
-        aNextTime.setTime(aIntervalTime.getTime());
-      }
-      if (bIntervalTime < bNextTime) {
-        bNextTime.setTime(bIntervalTime.getTime());
-      }
-    } else if (a.intervalDays) {
-      // Only chore a has intervalDays defined
-      const aIntervalTime = new Date(a.doneLast);
-      aIntervalTime.setDate(aIntervalTime.getDate() + a.intervalDays);
-      if (aIntervalTime < aNextTime) {
-        aNextTime.setTime(aIntervalTime.getTime());
-      }
-    } else if (b.intervalDays) {
-      // Only chore b has intervalDays defined
-      const bIntervalTime = new Date(b.doneLast);
-      bIntervalTime.setDate(bIntervalTime.getDate() + b.intervalDays);
-      if (bIntervalTime < bNextTime) {
-        bNextTime.setTime(bIntervalTime.getTime());
-      }
-    }
-
-    return aNextTime.getTime() - bNextTime.getTime();
+    return urgencyMap[b.name] - urgencyMap[a.name];
   });
 };
 
@@ -229,7 +217,7 @@ bot.action(/chore_.*/, async (ctx) => {
   log(`Chore found for command ${ctx.match[0]}:`, chore);
   const doneChore = {
     ...chore,
-    doneLast: new Date(),
+    doneLast: new Date().toISOString(),
     doneByUser: ctx.from.id,
   };
 

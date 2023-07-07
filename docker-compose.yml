@@ -8,4 +8,8 @@ services:
     environment: 
       - DOCKER=1
     volumes: 
-      - ./db/:/db/
+      - db-data:/db/
+
+volumes:
+  db-data:
+    driver: local

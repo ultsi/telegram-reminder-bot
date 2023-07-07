@@ -92,14 +92,14 @@ export const chores: Chore[] = [
 ];
 
 export type DoneChore = Chore & {
-  doneLast: Date;
+  doneLast: string;
   doneByUser?: number;
 };
 
 const defaults: { chores: DoneChore[] } = {
   chores: chores.map((chore) => ({
     ...chore,
-    doneLast: new Date(),
+    doneLast: new Date().toISOString(),
     doneByUser: chore.user,
   })),
 };
