@@ -1,5 +1,3 @@
-import * as crypto from "crypto";
-
 import config from "../../config.js";
 import { DoneChore, choreDb, chores } from "../chores.js";
 import { bot } from "../lib/bot.js";
