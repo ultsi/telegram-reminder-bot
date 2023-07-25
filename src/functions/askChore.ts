@@ -85,6 +85,9 @@ const choreDoneStickers = [
   "CAACAgQAAxkBAAIJJ2Sn1fwuU9CAM7p1IREVGvoWWP0FAAIlAAPcBtsOJztPnQY6jFwvBA",
   "CAACAgQAAxkBAAIJKWSn1gvduRxYbPdOxT97JNSykMtwAAKIAAPgtZUGg3Dffufk5ZAvBA",
   "CAACAgQAAxkBAAIJK2Sn1hJFFQ68UvHoNQpBSlB4pGkuAAIoAAMmzeQJOCkQQe00X_4vBA",
+  "CAACAgQAAxkBAAIJhmS_9Hj6AAF3N7h2J9rRc-_PA5-vrAACfwwAAs5LOFBqebXum82M8y8E",
+  "CAACAgQAAxkBAAIJiGS_9R6aDZU_dVXxMqXKMEKbrn2lAAJDAAO-0k4YImtdpNVV6HkvBA",
+  "CAACAgQAAxkBAAIJimS_9SQjZL2nukOx-cRU-3ZzaiKeAAJNAAO-0k4YiYKu_1W6KuovBA",
 ];
 
 const sortChoresByUrgency = (chores: DoneChore[]) => {
@@ -94,7 +97,7 @@ const sortChoresByUrgency = (chores: DoneChore[]) => {
       if (!chore.intervalDays) {
         return {
           ...urgencyPerChore,
-          [chore.name]: -3,
+          [chore.name]: 0,
         };
       }
       const daysSinceLastDone = Math.floor(
@@ -118,8 +121,6 @@ const getSortedChoresForUser = async (user: number) => {
   // get the last time it was done by user
   // or if it has never been done by user, get the time it was last done
   const choresInDb = choreDb.data.chores;
-
-  log("choresInDb", choresInDb);
 
   const userChores = chores.map((defaultChore) => {
     const choresDone = choresInDb.filter(
