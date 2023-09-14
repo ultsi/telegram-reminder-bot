@@ -80,9 +80,9 @@ export const chores: Chore[] = [
     description: "vie roskat",
   },
   {
-    name: "Neato",
-    command: "neato",
-    description: "laita Neato siivoo sun puolesta",
+    name: "Järjestely (väh. 5min)",
+    command: "jarjestely",
+    description: "Järjestele paikkoja, nosta vaatteet, tavarat jne paikoilleen",
   },
   {
     name: "Keittiö",
